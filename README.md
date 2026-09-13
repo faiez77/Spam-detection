@@ -44,9 +44,9 @@ In real-world problems like spam detection, fraud detection, and risk modeling, 
 
 **At SVM's cost-optimal threshold (0.64),** precision jumps from 95.7% → **98.2%** — only **2 real messages** out of 903 are wrongly flagged as spam, down from 5 at the default threshold — at the cost of recall dropping from 85.5% → 83.2% (a few more spam messages slip through, 22 vs 19). Given the cost assumption above, this is the right trade: a small increase in missed spam is a reasonable price for a large drop in real messages getting lost in the spam folder.
 
-![ROC Curve](outputs/roc_curve.png)
-![Confusion Matrix — Logistic Regression](outputs/confusion_matrix_logistic_regression.png)
-![Precision/Recall vs Threshold](outputs/precision_recall_vs_threshold.png)
+![ROC Curve](roc_curve.png)
+![Confusion Matrix — Logistic Regression](confusion_matrix_logistic_regression.png)
+![Precision/Recall vs Threshold](precision_recall_vs_threshold.png)
 
 ## Business Interpretation
 
@@ -62,17 +62,16 @@ Results can vary slightly (by ~1-2 percentage points, and the cost-optimal thres
 
 ```
 spam_project/
-├── spam_detection.py       # full pipeline: EDA, preprocessing, modeling, threshold optimization
+├── spam_detection.py       
 ├── requirements.txt
-├── spam.csv                 # not included, see Dataset section
-├── outputs/
-│   ├── class_distribution.png
-│   ├── confusion_matrix_logistic_regression.png
-│   ├── confusion_matrix_naive_bayes.png
-│   ├── precision_recall_vs_threshold.png
-│   ├── roc_curve.png
-│   ├── metrics_summary.csv
-│   └── metrics_summary.md
+├── spam.csv                 
+├── class_distribution.png
+├── confusion_matrix_logistic_regression.png
+├── confusion_matrix_naive_bayes.png
+├── precision_recall_vs_threshold.png
+├── roc_curve.png
+├── metrics_summary.csv
+└── metrics_summary.md
 └── README.md
 ```
 
