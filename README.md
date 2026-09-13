@@ -63,7 +63,6 @@ Results can vary slightly (by ~1-2 percentage points, and the cost-optimal thres
 ```
 spam_project/
 ├── spam_detection.py       
-├── requirements.txt
 ├── spam.csv                 
 ├── class_distribution.png
 ├── confusion_matrix_logistic_regression.png
