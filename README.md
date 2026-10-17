@@ -4,7 +4,7 @@
 
 In real-world problems like spam detection, fraud detection, and risk modeling, datasets are often imbalanced, and accuracy alone is misleading. This project builds a binary classifier (Spam vs. Ham) for SMS messages, with the core design goal of **predicting probabilities and choosing a decision threshold justified by business cost**, rather than defaulting to 0.5 or picking a threshold by eyeballing a chart.
 
-**The core question:** which model separates spam from ham best, and at what threshold should we act on its predictions — given that missing a spam message is more costly than a false alarm?
+**The core question:** which model separates spam from ham best, and at what threshold should we act on its predictions : given that missing a spam message is more costly than a false alarm?
 
 ## Dataset
 
@@ -12,7 +12,7 @@ In real-world problems like spam detection, fraud detection, and risk modeling, 
 
 - `v1` — label (`ham` / `spam`)
 - `v2` — raw message text
-- After removing 403 exact duplicate messages: **5,169 rows**, 13.4% spam / 86.6% ham (imbalanced — this is why accuracy alone is a poor metric here)
+- After removing 403 exact duplicate messages: **5,169 rows**, 13.4% spam / 86.6% ham (imbalanced : this is why accuracy alone is a poor metric here)
 
 ## Pipeline
 
@@ -26,7 +26,7 @@ In real-world problems like spam detection, fraud detection, and risk modeling, 
    cost = (false positives × cost_of_flagging_real_message) + (false negatives × cost_of_missed_spam)
    ```
 
-   **Cost assumption:** a false positive (a real message wrongly marked as spam) is assumed 3× costlier than a false negative (a spam message that slips into the inbox). This is the standard real-world framing for spam filters — a user may never check their spam folder, so a misflagged real message (a job offer, an OTP, a message from someone they know) can be genuinely missed, while a stray spam message in the inbox is just an annoyance. This is the *opposite* of the typical fraud-detection cost ratio (where missing fraud is usually worse than a false alarm) — worth noting explicitly, since the "right" cost direction depends entirely on the domain. The threshold that minimizes total cost is selected — not guessed. (Edit `COST_FALSE_POSITIVE` / `COST_FALSE_NEGATIVE` in the script to test a different assumption.)
+   **Cost assumption:** a false positive (a real message wrongly marked as spam) is assumed 3× costlier than a false negative (a spam message that slips into the inbox). This is the standard real-world framing for spam filters : a user may never check their spam folder, so a misflagged real message (a job offer, an OTP, a message from someone they know) can be genuinely missed, while a stray spam message in the inbox is just an annoyance. This is the *opposite* of the typical fraud-detection cost ratio (where missing fraud is usually worse than a false alarm) — worth noting explicitly, since the "right" cost direction depends entirely on the domain. The threshold that minimizes total cost is selected — not guessed. (Edit `COST_FALSE_POSITIVE` / `COST_FALSE_NEGATIVE` in the script to test a different assumption.)
 
 ## Results
 
@@ -42,7 +42,7 @@ In real-world problems like spam detection, fraud detection, and risk modeling, 
 
 **SVM remains the selected model** — it ties Logistic Regression and Random Forest at the top of ROC-AUC (all within 0.003, noise-level) but wins on F1 (0.903) and accuracy (0.977) at the default threshold. This is the clearest illustration in the whole project of why **ROC-AUC alone shouldn't decide model selection**: Random Forest "wins" on AUC, but would perform worse in production at a fixed operating threshold than SVM would.
 
-**At SVM's cost-optimal threshold (0.64),** precision jumps from 95.7% → **98.2%** — only **2 real messages** out of 903 are wrongly flagged as spam, down from 5 at the default threshold — at the cost of recall dropping from 85.5% → 83.2% (a few more spam messages slip through, 22 vs 19). Given the cost assumption above, this is the right trade: a small increase in missed spam is a reasonable price for a large drop in real messages getting lost in the spam folder.
+**At SVM's cost-optimal threshold (0.64),** precision jumps from 95.7% → **98.2%** : only **2 real messages** out of 903 are wrongly flagged as spam, down from 5 at the default threshold — at the cost of recall dropping from 85.5% → 83.2% (a few more spam messages slip through, 22 vs 19). Given the cost assumption above, this is the right trade: a small increase in missed spam is a reasonable price for a large drop in real messages getting lost in the spam folder.
 
 ![ROC Curve](roc_curve.png)
 ![Confusion Matrix — Logistic Regression](confusion_matrix_logistic_regression.png)
